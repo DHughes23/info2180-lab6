@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> </title>
+    </head>
+    <script>
+        window.onload = begin;
+        function begin(){
+            document.getElementById("searching").addEventListener("click", defin);
+        }
+        
+        function defin(){
+            
+            var hst = new XMLHttpRequest();
+            var url = "https://lab6-dhughes23.c9users.io/request.php?q=definition";
+            hst.onreadystatechange = function(){
+                if (hst.readyState === XMLHttpRequest.DONE) {
+                    if (hst.status === 200){
+                        var result=hst.responseText;
+                        console.log("3");
+                        alert(result);
+                    }
+                }
+            }
+            hst.open('GET', url);
+            hst.send();
+        }
+        
+    </script>
+    <body></body>
+        <button id="searching">Search</button>
+    </body>
+</html>

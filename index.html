@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title> </title>
+        <title> Web Dictionary</title>
+        <h1>Web Dictionary</h1>
     </head>
+    
     <script>
-        window.onload = begin;
-        function begin(){
-            document.getElementById("searching").addEventListener("click", defin);
+        window.onload=startUp;
+        
+        function startUp(){
+            var s=document.querySelector("button");
+            s.addEventListener("click",defin);
         }
         
         function defin(){
-            
+            var sear=document.getElementById("hat").value;
             var hst = new XMLHttpRequest();
-            var url = "https://lab6-dhughes23.c9users.io/request.php?q=definition";
+            var url = "https://lab6-dhughes23.c9users.io/request.php?q=" + sear;
             hst.onreadystatechange = function(){
                 if (hst.readyState === XMLHttpRequest.DONE) {
                     if (hst.status === 200){
-                        var result=hst.responseText;
-                        console.log("3");
-                        alert(result);
+                        var res = hst.responseText;
+                        document.getElementById("result").innerHTML=res;
                     }
                 }
             }
@@ -27,7 +30,14 @@
         }
         
     </script>
-    <body></body>
-        <button id="searching">Search</button>
+    
+    <body>
+        <div id=ask>
+            Look up the definition of a word (eg. ajax, html, bar).</br>
+            <input id="hat" type="text" name="sTerm">
+        </div>
+        <button id="searching">Search</button></br>
+        <hr>
+        <div id=result><h3>Results</h3></div>
     </body>
 </html>

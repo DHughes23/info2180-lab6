@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+    
     <head>
         <title> Web Dictionary</title>
         <h1>Web Dictionary</h1>
@@ -9,8 +10,31 @@
         window.onload=startUp;
         
         function startUp(){
-            var s=document.querySelector("button");
-            s.addEventListener("click",defin);
+            
+            document.getElementById("searching").onclick= defin;
+            document.getElementById("getAll").onclick= everyOne;
+        }
+            
+        function everyOne(){
+            var lmx = new XMLHttpRequest();
+            var link = "https://lab6-dhughes23.c9users.io/request.php?q=&all=true";
+            var rist=document.createElement("OL");
+            lmx.onreadystatechange = function(){
+                if (lmx.readyState === XMLHttpRequest.DONE) {
+                    if (lmx.status === 200){
+                        var res = lmx.responseText;
+                        for (var t=0; t < 7; t++){
+                            rist+="<li>" + res[t] + "</li>";
+                        }
+                        
+                        document.getElementById("result").innerHTML=res;
+                        
+                    }
+                }
+            }
+            lmx.open('GET', link);
+            lmx.send();
+            console.log('984172');
         }
         
         function defin(){
@@ -34,10 +58,17 @@
     <body>
         <div id=ask>
             Look up the definition of a word (eg. ajax, html, bar).</br>
-            <input id="hat" type="text" name="sTerm">
+            <input id="hat" type="text" name="sTerm"></br>
         </div>
-        <button id="searching">Search</button></br>
+        <button id="searching">Search</button>
+        <button id="getAll">Get All Definitions</button></br>
+        
         <hr>
-        <div id=result><h3>Results</h3></div>
+        
+        <div id=result>
+            <h3>Results</h3>
+        </div>
+        
     </body>
+    
 </html>

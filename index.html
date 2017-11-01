@@ -14,33 +14,39 @@
             document.getElementById("searching").onclick= defin;
             document.getElementById("getAll").onclick= everyOne;
         }
-            
+          
         function everyOne(){
             var lmx = new XMLHttpRequest();
             var link = "https://lab6-dhughes23.c9users.io/request.php?q=&all=true";
-            var rist=document.createElement("OL");
             lmx.onreadystatechange = function(){
                 if (lmx.readyState === XMLHttpRequest.DONE) {
                     if (lmx.status === 200){
-                        var res = lmx.responseText;
-                        for (var t=0; t < 7; t++){
-                            rist+="<li>" + res[t] + "</li>";
+                        var res = lmx.responseXML;
+                        var tin= document.getElementById("result");
+                        var entries = res.getElementsByTagName('definitiona');
+                        var rist=document.createElement("OL");
+                        tin.appendChild(rist);
+                        for (var t=0; t < entries.length; t++){
+                            var enter = document.createElement('li');
+                            var hex = document.createTextNode(entries[t].children[0].childNodes[0].nodeValue);
+                            enter.appendChild(hex);
+                            rist.appendChild(enter);
                         }
-                        
-                        document.getElementById("result").innerHTML=res;
-                        
+                    }else{
+                        alert('There was a problem; you have failed.');
                     }
                 }
             }
-            lmx.open('GET', link);
+            lmx.open('GET', link, true);
             lmx.send();
             console.log('984172');
         }
         
         function defin(){
-            var sear=document.getElementById("hat").value;
+            var sear=document.getElementById("choose").value;
             var hst = new XMLHttpRequest();
             var url = "https://lab6-dhughes23.c9users.io/request.php?q=" + sear;
+            console.log(url);
             hst.onreadystatechange = function(){
                 if (hst.readyState === XMLHttpRequest.DONE) {
                     if (hst.status === 200){
@@ -58,7 +64,7 @@
     <body>
         <div id=ask>
             Look up the definition of a word (eg. ajax, html, bar).</br>
-            <input id="hat" type="text" name="sTerm"></br>
+            <input id="choose" type="text" name="sTerm"></br>
         </div>
         <button id="searching">Search</button>
         <button id="getAll">Get All Definitions</button></br>

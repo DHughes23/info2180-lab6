@@ -17,7 +17,7 @@
           
         function everyOne(){
             var lmx = new XMLHttpRequest();
-            var link = "https://lab6-dhughes23.c9users.io/request.php?q=&all=true";
+            var link = "request.php";
             lmx.onreadystatechange = function(){
                 if (lmx.readyState === XMLHttpRequest.DONE) {
                     if (lmx.status === 200){
@@ -25,11 +25,19 @@
                         var tin= document.getElementById("result");
                         var entries = res.getElementsByTagName('definitiona');
                         var rist=document.createElement("OL");
+                        console.log(entries);
                         tin.appendChild(rist);
                         for (var t=0; t < entries.length; t++){
                             var enter = document.createElement('li');
-                            var hex = document.createTextNode(entries[t].children[0].childNodes[0].nodeValue);
-                            enter.appendChild(hex);
+                            var first = document.createTextNode(entries[t].children[0].childNodes[0].nodeValue);
+                            var second= document.createTextNode(entries[t].children[1].childNodes[0].nodeValue);
+                            var third = document.createTextNode(entries[t].children[2].childNodes[0].nodeValue);
+                            if (t==0){
+                               console.log(third);
+                            }
+                            enter.appendChild(first);
+                            enter.appendChild(second);
+                            enter.appendChild(third);
                             rist.appendChild(enter);
                         }
                     }else{
@@ -46,7 +54,6 @@
             var sear=document.getElementById("choose").value;
             var hst = new XMLHttpRequest();
             var url = "https://lab6-dhughes23.c9users.io/request.php?q=" + sear;
-            console.log(url);
             hst.onreadystatechange = function(){
                 if (hst.readyState === XMLHttpRequest.DONE) {
                     if (hst.status === 200){

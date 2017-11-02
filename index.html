@@ -10,9 +10,25 @@
         window.onload=startUp;
         
         function startUp(){
-            
+        
             document.getElementById("searching").onclick= defin;
             document.getElementById("getAll").onclick= everyOne;
+        }
+        
+         function defin(){
+            var sear=document.getElementById("choose").value;
+            var hst = new XMLHttpRequest();
+            var url = "https://lab6-dhughes23.c9users.io/request.php?q=" + sear;
+            hst.onreadystatechange = function(){
+                if (hst.readyState === XMLHttpRequest.DONE) {
+                    if (hst.status === 200){
+                        var res = hst.responseText;
+                        document.getElementById("result").innerHTML=res;
+                    }
+                }
+            }
+            hst.open('GET', url);
+            hst.send();
         }
           
         function everyOne(){
@@ -45,27 +61,9 @@
                     }
                 }
             }
-            lmx.open('GET', link, true);
+            lmx.open('GET', link);
             lmx.send();
-            console.log('984172');
         }
-        
-        function defin(){
-            var sear=document.getElementById("choose").value;
-            var hst = new XMLHttpRequest();
-            var url = "https://lab6-dhughes23.c9users.io/request.php?q=" + sear;
-            hst.onreadystatechange = function(){
-                if (hst.readyState === XMLHttpRequest.DONE) {
-                    if (hst.status === 200){
-                        var res = hst.responseText;
-                        document.getElementById("result").innerHTML=res;
-                    }
-                }
-            }
-            hst.open('GET', url);
-            hst.send();
-        }
-        
     </script>
     
     <body>
